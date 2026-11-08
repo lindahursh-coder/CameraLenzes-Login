@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CameraLenzes</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111;
+  color: white;
+  font-family: Arial, sans-serif;
+  padding: 12px;
+}
+
+.box {
+  width: 100%;
+  max-width: 350px;
+  padding: 22px;
+  background: #222;
+  border-radius: 15px;
+  text-align: center;
+}
+
+h1 { margin: 0 0 8px; }
+h2 { margin: 8px 0 15px; }
+
+input, button {
+  width: 100%;
+  padding: 12px;
+  margin: 6px 0;
+  border: 0;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+button {
+  background: #38a169;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#message {
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+<div class="box">
+  <h1>CameraLenzes</h1>
+  <h2>Welcome!</h2>
+
+  <input id="email" type="email" placeholder="Email address">
+  <input id="password" type="password" placeholder="Password">
+
+  <button onclick="signUp()">Create Account</button>
+  <button onclick="signIn()">Log In</button>
+  <button onclick="googleSignIn()">Continue with Google</button>
+
+  <p id="message"></p>
+</div>
+
+<script>
+const SUPABASE_URL = "https://vxqqyzsjzestthjdmyzw.supabase.co";
+const SUPABASE_KEY = "sb_publishable_hcAM5qZCGO0RqC9HnE-Teg_26_2eqPI";
+
+const client = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+function showMessage(message) {
+  document.getElementById("message").textContent = message;
+}
+
+async function signUp() {
+  const { error } = await client.auth.signUp({
+    email: document.getElementById("email").value,
+    password: document.getElementById("password").value
+  });
+
+  showMessage(error ? error.message : "Check your email!");
+}
+
+async function signIn() {
+  const { error } = await client.auth.signInWithPassword({
+    email: document.getElementById("email").value,
+    password: document.getElementById("password").value
+  });
+
+  showMessage(error ? error.message : "You're logged in!");
+}
+
+async function googleSignIn() {
+  const { error } = await client.auth.signInWithOAuth({
+    provider: "google",
+    options: { redirectTo: window.location.href }
+  });
+
+  if (error) showMessage(error.message);
+}
+</script>
+</body>
+</html>
+
+This uses a centered, compact layout designed to fit on a phone screen.
