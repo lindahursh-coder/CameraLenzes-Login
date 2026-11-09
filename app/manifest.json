@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <title>CameraLenzes</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icon-192.png">
+</head>
+<body>
+  <iframe
+    src="https://cameralenzes.carrd.co"
+    title="CameraLenzes"
+    style="width:100%; height:100vh; border:0;"
+    allow="camera; microphone; fullscreen"
+  ></iframe>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./service-worker.js");
+    }
+  </script>
+</body>
+</html>
